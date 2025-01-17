@@ -1,7 +1,5 @@
 from typing import Optional
-
 from fastapi.responses import StreamingResponse
-
 from app.core.settings import settings
 
 
@@ -18,6 +16,7 @@ def make_response(
 
     Raises:
         ValueError: If neither content nor file_path is provided.
+        TypeError: If file_path is not a valid string.
 
     Returns:
         StreamingResponse: StreamingResponse object.
@@ -27,7 +26,11 @@ def make_response(
             content=content,
             media_type="application/octet-stream",
         )
+
     if file_path is not None:
+        # Đảm bảo file_path là chuỗi, nếu không, chuyển thành chuỗi (nếu có thể)
+        if not isinstance(file_path, str):
+            file_path = str(file_path)
         file_name = file_path.split("/")[-1]
         media_url = f"{settings.media_base_url}/{file_name}"
         return StreamingResponse(
@@ -35,4 +38,6 @@ def make_response(
             media_type="application/octet-stream",
             headers={"Content-Disposition": f"attachment; filename={file_name}"},
         )
+
+    # Nếu không có cả content và file_path
     raise ValueError("Either content or file_path must be provided.")

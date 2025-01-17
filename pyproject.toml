@@ -11,7 +11,7 @@ maintainers = [
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 fastapi = "^0.111.0"
 uvicorn = { version = "^0.30.1", extras = ["standard"] }
 gunicorn = "^22.0.0"
@@ -24,6 +24,13 @@ asyncpg = {version = "^0.29.0", extras = ["sa"]}
 httptools = "^0.6.1"
 pymongo = "^4.8.0"
 loguru = "^0"
+langchain = "0.1.0"
+langchain-google-genai = "^0.0.7"
+fpdf = "^1.7.2"
+
+python-docx = "^1.1.2"
+python-pptx = "^1.0.2"
+pypdf = "^5.1.0"
 
 
 [tool.poetry.group.dev.dependencies]

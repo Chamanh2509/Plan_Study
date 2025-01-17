@@ -1,7 +1,7 @@
 import enum
 from pathlib import Path
 from tempfile import gettempdir
-
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from yarl import URL
 
@@ -52,8 +52,11 @@ class Settings(BaseSettings):
     db_echo: bool = False
 
     # Path to the directory with media
+    # Media directory
     media_dir: str = "media"
-
+    # Gemini key
+    gemini_api_key: str = ""
+    tavily_api_key: str = ""
     @property
     def db_url(self) -> URL:
         """
@@ -82,6 +85,7 @@ class Settings(BaseSettings):
         static_dir.mkdir(parents=True, exist_ok=True)
         return static_dir
 
+    gemini_key: str = "AIzaSyCr5whd4_46jBsXqippmtf6Jh5eqXjN4uY"
     @property
     def media_base_url(self) -> str:
         """
@@ -101,3 +105,5 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+if not settings.gemini_key:
+    raise ValueError("Gemini key is required but not provided!")

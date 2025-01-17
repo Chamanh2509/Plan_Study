@@ -3,6 +3,11 @@ from sqlalchemy.engine import make_url
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from app.core.settings import settings
+# app/utils/api_utils.py
+from fastapi.responses import JSONResponse
+
+def make_response(content: dict, status_code: int = 200) -> JSONResponse:
+    return JSONResponse(content=content, status_code=status_code)
 
 
 async def create_database() -> None:
